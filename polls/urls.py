@@ -27,5 +27,14 @@ Sock.objects.create(name='Зеленые носки', description='Зелены�
 print("База данных заполнена!")
 
 urlpatterns = [
+<<<<<<< Updated upstream
     path('products/', views.product_list, name='product_list'),
 ]
+=======
+    # ... другие пути ...
+    path('register/', views.register, name='register'),
+    path('login/', views.login_view, name='login'),
+    # ... другие пути ...
+    path("", views.index, name="index"),
+]
+>>>>>>> Stashed changes
