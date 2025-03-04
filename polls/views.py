@@ -3,18 +3,16 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
-<<<<<<< Updated upstream
 from django.shortcuts import render
 from .models import Sock
 
 def home(request):
-    socks = Sock.objects.all()  # Получаем все товары из базы
-    return render(request, 'polls/home.html', {'socks': socks})
+    return render(request, 'polls/home.html')
 
 def product_list(request):
     products = Sock.objects.all()  # Используем модель Sock
     return render(request, 'polls/product_list.html', {'products': products})
-=======
+
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
@@ -45,5 +43,4 @@ def login_view(request):
     else:
         form = AuthenticationForm()
     return render(request, 'registration/login.html', {'form': form})
->>>>>>> Stashed changes
 
