@@ -1,9 +1,10 @@
-from django.urls import path
+from django.urls import path, include
 from .views import home
 from . import views
 from polls.models import Sock
 import os
 import django
+from django.contrib.auth import views as auth_views
 
 # Удаляем все записи
 Sock.objects.all().delete()
@@ -31,6 +32,9 @@ urlpatterns = [
     path('products/', views.product_list, name='product_list'),
     path('register/', views.register, name='register'),
     path('login/', views.login_view, name='login'),
-    path("", views.index, name="index"),
+    path('accounts/profile/', views.profile, name='profile'),
+    path('accounts/user_profile/', views.profile, name='user_profile'),
+    path('accounts/logout/', auth_views.LogoutView.as_view(next_page='polls:home'), name='logout'),
+    path('accounts/', include('django_registration.backends.one_step.urls')),
 ]
 

@@ -2,11 +2,13 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render
 from .models import Sock
 
 def home(request):
+    print(f"Пользователь аутентифицирован: {request.user.is_authenticated}")
     return render(request, 'polls/home.html')
 
 def product_list(request):
@@ -43,4 +45,8 @@ def login_view(request):
     else:
         form = AuthenticationForm()
     return render(request, 'registration/login.html', {'form': form})
+
+@login_required
+def profile(request):
+    return render(request, 'polls/profile.html')
 

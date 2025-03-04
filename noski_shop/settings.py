@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'polls',
+    'django_registration',
 ]
 
 MIDDLEWARE = [
@@ -123,3 +124,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'profile'
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Используйте базу данных для хранения сессий
+SESSION_COOKIE_SECURE = False  # Для разработки, в production должно быть True
+SESSION_COOKIE_HTTPONLY = True  # Защита от XSS-атак
