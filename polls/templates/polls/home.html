@@ -45,9 +45,38 @@
 <body>
     <div class="container">
         <h1>Добро пожаловать на наш сайт!</h1>
-        <a href="{% url 'product_list' %}" class="button">Перейти в магазин</a>
-        <a href="{% url 'login' %}" class="button">Вход</a>
-        <a href="{% url 'django_registration_register' %}" class="button">Регистрация</a>
+        <a href="{% url 'polls:product_list' %}" class="button">Перейти в магазин</a>
+
+        {% if user.is_authenticated %}
+            <form id="logoutForm" action="{% url 'polls:logout' %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="button">Выйти</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}" class="button">Вход</a>
+            <a href="{% url 'register' %}" class="button">Регистрация</a>
+        {% endif %}
     </div>
+
+    <script>
+        function logout(event) {
+            event.preventDefault();  // Отменяем стандартное поведение формы
+            fetch("{% url 'polls:logout' %}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+            }).then(response => {
+                if (response.ok) {
+                    window.location.href = "{% url 'polls:home' %}";  // Перенаправление на главную страницу
+                } else {
+                    console.error('Ошибка при выходе');
+                }
+            }).catch(error => {
+                console.error('Ошибка при выходе:', error);
+            });
+        }
+    </script>
 </body>
 </html> 

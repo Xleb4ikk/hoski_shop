@@ -6,6 +6,8 @@ import os
 import django
 from django.contrib.auth import views as auth_views
 
+app_name = 'polls'
+
 # Удаляем все записи
 Sock.objects.all().delete()
 

@@ -1,8 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 
 from django.shortcuts import render
 from .models import Sock
@@ -49,4 +50,9 @@ def login_view(request):
 @login_required
 def profile(request):
     return render(request, 'polls/profile.html')
+
+@require_POST
+def logout_view(request):
+    logout(request)
+    return redirect('polls:home')  # Перенаправление на главную страницу
 
