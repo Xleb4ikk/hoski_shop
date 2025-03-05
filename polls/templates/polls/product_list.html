@@ -57,7 +57,7 @@
             <p>{{ product.description }}</p>
             <p>Цена: {{ product.price }} руб.</p>
             <button class="button" onclick="placeOrder()">Заказать товар</button>
-            <a href="{% url 'product_detail' product.pk %}" class="button">Подробнее</a>
+            <a href="{% url 'polls:product_detail' product.id %}" class="button">Подробнее</a>
         </div>
         {% empty %}
         <p>Товары не найдены.</p>
