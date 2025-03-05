@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import home, product_list, product_detail
+from .views import home, product_list, product_detail, place_order, order_success
 from . import views
 from polls.models import Sock
 import os
@@ -34,8 +34,8 @@ print("Loading polls.urls")  # Отладочный вывод
 urlpatterns = [
     path('products/', views.product_list, name='product_list'),
     path('products/<int:pk>/', views.product_detail, name='product_detail'),
-    path('products/', views.product_list, name='product_list'),
-    path('products/<int:pk>/', views.product_detail, name='product_detail'),
+    path('order/', views.place_order, name='place_order'),
+    path('order/success/', views.order_success, name='order_success'),
     path('', views.home, name='home'),
     path('products/', views.product_list, name='product_list'),
     path('products/<int:pk>/', views.product_detail, name='product_detail'),

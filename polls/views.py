@@ -7,6 +7,7 @@ from django.views.decorators.http import require_POST
 
 from django.shortcuts import render
 from .models import Sock, Product
+from .forms import OrderForm
 
 print("Loading polls.views")  # Отладочный вывод
 
@@ -61,4 +62,20 @@ def profile(request):
 def logout_view(request):
     logout(request)
     return redirect('polls:home')  # Перенаправление на главную страницу
+
+def place_order(request):
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            product = form.cleaned_data['product']
+            quantity = form.cleaned_data['quantity']
+            # Здесь вы можете добавить логику для обработки заказа
+            # Например, уменьшить количество товара на складе
+            return redirect('order_success')  # Перенаправление на страницу успешного заказа
+    else:
+        form = OrderForm()
+    return render(request, 'polls/place_order.html', {'form': form})
+
+def order_success(request):
+    return render(request, 'polls/order_success.html')
 
