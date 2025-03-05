@@ -1,20 +1,26 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 
 from django.shortcuts import render
-from .models import Sock
+from .models import Sock, Product
+
+print("Loading polls.views")  # Отладочный вывод
 
 def home(request):
     print(f"Пользователь аутентифицирован: {request.user.is_authenticated}")
     return render(request, 'polls/home.html')
 
 def product_list(request):
-    products = Sock.objects.all()  # Используем модель Sock
+    products = Product.objects.all()
     return render(request, 'polls/product_list.html', {'products': products})
+
+def product_detail(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    return render(request, 'polls/product_detail.html', {'product': product})
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")

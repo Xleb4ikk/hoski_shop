@@ -21,14 +21,17 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from polls import views
 
+print("Loading noski_shop.urls")  # Отладочный вывод
+
 app_name = 'polls'  # Пространство имен
 
 urlpatterns = [
-    path("polls/", include("polls.urls")),
-    path("admin/", admin.site.urls),
+    path('admin/', admin.site.urls),
+    path('polls/', include('polls.urls')),
     path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
     path('accounts/logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
     path('accounts/', include('django_registration.backends.one_step.urls')),
     path('accounts/register/', views.register, name='register'),
     path('accounts/profile/', views.profile, name='profile'),
+    path('', views.home, name='home'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

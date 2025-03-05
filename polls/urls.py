@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import home
+from .views import home, product_list, product_detail
 from . import views
 from polls.models import Sock
 import os
@@ -29,9 +29,16 @@ Sock.objects.create(name='Зеленые носки', description='Зелены�
 
 print("База данных заполнена!")
 
+print("Loading polls.urls")  # Отладочный вывод
+
 urlpatterns = [
+    path('products/', views.product_list, name='product_list'),
+    path('products/<int:pk>/', views.product_detail, name='product_detail'),  # Убедитесь, что это правильно настроено
+    path('products/', views.product_list, name='product_list'),
+    path('products/<int:pk>/', views.product_detail, name='product_detail'),  # Убедитесь, что это правильно настроено
     path('', views.home, name='home'),
     path('products/', views.product_list, name='product_list'),
+    path('products/<int:pk>/', views.product_detail, name='product_detail'),
     path('register/', views.register, name='register'),
     path('login/', views.login_view, name='login'),
     path('accounts/profile/', views.profile, name='profile'),
@@ -39,4 +46,3 @@ urlpatterns = [
     path('accounts/logout/', auth_views.LogoutView.as_view(next_page='polls:home'), name='logout'),
     path('accounts/', include('django_registration.backends.one_step.urls')),
 ]
-
